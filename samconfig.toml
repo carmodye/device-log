@@ -3,3 +3,15 @@ version = 0.1
 stack_name = "aws-app-composer-basic-api"
 [default.deploy.parameters]
 capabilities = "CAPABILITY_IAM"
+
+[dev]
+[dev.deploy]
+[dev.deploy.parameters]
+stack_name = "ab-dev-log"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-hsm77ga61yqi"
+s3_prefix = "ab-dev-log"
+region = "us-east-1"
+profile = "abcarmody"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+disable_rollback = true
