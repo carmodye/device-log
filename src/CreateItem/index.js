@@ -22,24 +22,20 @@ exports.handler = async event => {
       };
     }
 
-    // Generate a random UUID as the hash key ID for the item
-    item.id = randomUUID();
+    // Use devices uniqueid as the item id
+    item.id = item.uniqueid;
+    item.timestamp = new Date().valueOf();
+
 
     console.log(`Adding item with ID '${item.id}' to table '${process.env.ITEMS_TABLE_NAME}' with attributes: ${JSON.stringify(item, null, 2)}`);
 
     // We use a ConditionExpression to ensure we don't overwrite a record that
     // already exists for the same id. An error will be thrown if this happens
     // and we'll return a 500 error.
+    // ConditionExpression: "#idKey <> :idValue",
     const command = new PutCommand({
       TableName: process.env.ITEMS_TABLE_NAME,
-      Item: item,
-      ConditionExpression: "#idKey <> :idValue",
-      ExpressionAttributeNames: {
-        "#idKey": "id"
-      },
-      ExpressionAttributeValues: {
-        ":idValue": item.id
-      }
+      Item: item
     });
 
     await ddbDocClient.send(command);
