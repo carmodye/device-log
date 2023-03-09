@@ -15,3 +15,15 @@ profile = "abcarmody"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
 disable_rollback = true
+
+[stage]
+[stage.deploy]
+[stage.deploy.parameters]
+stack_name = "ab1-stack"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-hsm77ga61yqi"
+s3_prefix = "ab1-stack"
+region = "us-east-1"
+profile = "abcarmody"
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []
